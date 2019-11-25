@@ -1,9 +1,19 @@
 #Nathan Magrogan
+#Kaylee Moniz
 #https://github.com/nmagrogan/CPSC351
 #python2.7
+'''
+DFA description found in sigma.dat and DFA.dat
+sigma.dat format
+state+input state_to_go_to
 
-#sorry, I started this too late and didn't have time to meet all the requirements of the assignment,
-#but this works for the one DFA asked for. 
+all other parts of the DFA are in the DFA.dat file
+states are line 1
+the alphabet is line 2
+start state is line 3
+and the accept states are on line 3
+'''
+
 
 def define_dfa(file):
 
@@ -11,38 +21,37 @@ def define_dfa(file):
 
     f=open(file, "r")
     lines = f.readlines()
-    states = lines[0]
-    alphabet = lines[1]
-    sigma = lines[2]
-    start_state = lines[3]
-    accept_states = lines[4]
+    states = lines[0].split()
+    alphabet = lines[1].split()
+    start_state = lines[2].split()
+    accept_states = lines[3].split()
     f.close()
 
+    sigma = {}
+    with open("sigma.dat") as f:
+        for line in f:
+            (key, val) = line.split()
+            sigma[key] = val
+
+
     DFA = (states, alphabet,sigma,start_state, accept_states)
-    print DFA
     return DFA
 
 
 def main():
 
-    #G = define_dfa("DFA.dat")
+    G = define_dfa("DFA.dat")
     running = True
+
     while(running == True):
         string = raw_input("Enter a string to test: ")
-        state = 0
+        state = G[3][0]
 
         for char in string:
-            if char == '1' and state == 0:
-                state = 1
-            elif char == '0' and state ==0:
-                state = 2
-            elif (char == '0' or char == '1') and state == 1:
-                state = 0
-            else:
-                state = 2
-                break
+            state_char = str(state)+str(char)
+            state = G[2][state_char]
 
-        if state == 1 or state == 0:
+        if state in G[4]:
             print "String accepted"
         else:
             print "string rejected"
