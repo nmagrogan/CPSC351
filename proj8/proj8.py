@@ -69,7 +69,8 @@ def main():
         string = "_"+string+"_"
 
         for char in string:
-
+            if len(string) ==2:
+                break
             if char not in alphabet:
                 print "string rejected, not a valid string."
                 state = "reject"
