@@ -3,14 +3,12 @@
 #https://github.com/nmagrogan/CPSC351
 #python2.7
 '''
-delta functison described in function delta
-
-all other parts of the PDA are in the PDA.dat file
 states are line 1
 the alphabet is line 2
 stack language = line 3
 start state is line 4
-and the accept states are on line 5
+the accept states are on line 5
+reject state on line 6
 '''
 
 
